@@ -6,7 +6,7 @@ import java.sql.SQLException;
 public class Connection {
     private final String url = "jdbc:mysql://localhost:3306/ecommerce?verifyServerCertificate=false&useSSL=false&requireSSL=false&allowPublicKeyRetrieval=true";
     private final String dbUsername = "root";
-    private final String dbPassword = "Juststudy@123";
+    private final String dbPassword = "";
     private final String driverName = "com.mysql.jdbc.Driver";
     protected java.sql.Connection connection;
 
