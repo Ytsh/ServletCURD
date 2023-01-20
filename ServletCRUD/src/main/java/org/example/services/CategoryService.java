@@ -1,6 +1,7 @@
 package org.example.services;
 
 import org.example.model.Category;
+import org.example.model.dto.CategoryDTO;
 import org.example.repository.CategoryRepository;
 
 import java.sql.SQLException;
@@ -22,5 +23,9 @@ public class CategoryService {
 
     public void deleteCategory(int category) throws SQLException {
         this.categoryRepository.deleteCategory(category);
+    }
+
+    public List<CategoryDTO> getAllCategoryWithProduct() throws SQLException, ClassNotFoundException {
+        return this.categoryRepository.getAllCategoryWithProduct();
     }
 }

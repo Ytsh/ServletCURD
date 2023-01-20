@@ -1,6 +1,9 @@
 package org.example.repository;
 
 import org.example.model.Category;
+import org.example.model.dto.CategoryDTO;
+import org.example.model.dto.ProductDTO;
+import org.example.model.dto.Productss;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -162,5 +165,23 @@ public class CategoryRepository extends Connection {
         } finally {
             disconnect();
         }
+    }
+
+    public List<CategoryDTO> getAllCategoryWithProduct() throws SQLException, ClassNotFoundException {
+        List<CategoryDTO> allCategoryWithProduct = new ArrayList<>();
+        ProductRepository productRepository = new ProductRepository();
+
+        List<Category> allCategory = getAllCategory();
+        for (Category category : allCategory){
+            List<ProductDTO> allProduct = new ArrayList<>();
+            allProduct = productRepository.getAllProductForCategory(category.getId());
+            List<Productss> productss = new ArrayList<>();
+            for (ProductDTO p: allProduct){
+                productss.add(new Productss(p.getPrice(),p.getId(),p.getProductName(),p.getProductDescription(),p.getImage()));
+            }
+            allCategoryWithProduct.add(new CategoryDTO(category.getId(), category.getCategoryName(), category.getCategoryDescription() ,productss));
+        }
+
+            return allCategoryWithProduct;
     }
 }

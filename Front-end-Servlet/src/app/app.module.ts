@@ -15,12 +15,15 @@ import { MaterialModule } from './material/material.module';
 import { LoginComponent } from './signing/login/login.component';
 import { AuthService } from './auth/service/auth.service';
 import { AuthInterceptor } from './auth/interceptor/auth.interceptor';
+import { CategoryProductComponent } from './customer/category-product/category-product.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     LoginComponent,
+    CategoryProductComponent
     
   ],
   imports: [
@@ -32,7 +35,8 @@ import { AuthInterceptor } from './auth/interceptor/auth.interceptor';
     // StoreModule.forRoot({}, {})
   ],
   providers: [AuthService,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    CookieService
   ],
   bootstrap: [AppComponent]
 })

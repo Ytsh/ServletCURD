@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Category } from '../interface/category';
 import { BehaviorSubject, first, Observable } from 'rxjs';
 import { Product } from '../interface/product';
+import { CategoryProduct } from '../interface/category-product';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class CategoryService {
    }
   product = new BehaviorSubject<Product[]>([]);
   category = new BehaviorSubject<Category[]>([]);
+  categoryProduct = new BehaviorSubject<CategoryProduct[]>([]);
 
   public getCategories():void {
     this.http.get<Category[]>(this.apiServerUrl+"/category").pipe(first()).subscribe(category => this.category.next(category));
@@ -33,6 +35,9 @@ export class CategoryService {
   }
   public getProductsbyCatId(id): void{
     this.http.get<Product[]>(this.apiServerUrl+"/product/"+id).pipe(first()).subscribe(product => this.product.next(product));
+  }
+  public getCategoriesWithProducts():void {
+    this.http.get<CategoryProduct[]>(this.apiServerUrl+"/category/all").pipe(first()).subscribe(categoryProduct => this.categoryProduct.next(categoryProduct));
   }
 
 }

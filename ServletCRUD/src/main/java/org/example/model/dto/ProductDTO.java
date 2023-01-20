@@ -5,6 +5,11 @@ import org.example.model.Category;
 public class ProductDTO {
 
     private float price;
+    private int id;
+    private String productName;
+    private String productDescription;
+    private String image;
+    private Category category;
 
     public float getPrice() {
         return price;
@@ -14,11 +19,7 @@ public class ProductDTO {
         this.price = price;
     }
 
-    private int id;
-    private String productName;
-    private String productDescription;
-    private String image;
-    private Category category;
+
 
     public ProductDTO(int id, String productName, String productDescription, String image, float price, Category category) {
         this.id = id;

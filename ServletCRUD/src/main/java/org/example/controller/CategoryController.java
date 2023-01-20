@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.model.Category;
+import org.example.model.dto.CategoryDTO;
 import org.example.services.CategoryService;
 
 import java.io.IOException;
@@ -19,18 +20,38 @@ public class CategoryController extends HttpServlet {
     CategoryService categoryService = new CategoryService();
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        List<Category> categoryList = new ArrayList<>();
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        try {
-            categoryList = categoryService.getAllCategory();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+        int len = request.getRequestURI().split("/").length;
+
+        if (len <4){
+            List<Category> categoryList = new ArrayList<>();
+            try {
+                categoryList = categoryService.getAllCategory();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+            response.getWriter().print(new Gson().toJson(categoryList));
         }
-        response.getWriter().print(new Gson().toJson(categoryList));
+        else{
+            List<CategoryDTO> categoryDTO = new ArrayList<>();
+
+            try {
+                categoryDTO = categoryService.getAllCategoryWithProduct();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+
+            response.getWriter().print(new Gson().toJson(categoryDTO));
+
+
+        }
+
 
     }
 
@@ -103,6 +124,7 @@ public class CategoryController extends HttpServlet {
 
 
     }
+
 
     public Category stringBuilder(HttpServletRequest request) throws IOException {
 

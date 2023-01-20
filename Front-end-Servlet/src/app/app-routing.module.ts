@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth/gaurds/auth.guard';
+import { CategoryProductComponent } from './customer/category-product/category-product.component';
 import { LoginComponent } from './signing/login/login.component';
 
 const routes: Routes = [
+  {path: '', component: CategoryProductComponent},
   {
     path: 'login',
     component: LoginComponent
