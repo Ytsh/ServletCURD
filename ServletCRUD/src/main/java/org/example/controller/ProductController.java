@@ -38,15 +38,7 @@ public class ProductController extends HttpServlet {
         List<ProductDTO> productList =  new ArrayList<>();
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-//        StringBuilder sb = new StringBuilder();
-//        String s;
-//        while ((s = request.getReader().readLine()) != null) {
-//            sb.append(s);
-//        }
-//
-//        Gson gson = new Gson();
 
-        //        request.getParameterNames();
         int len = request.getRequestURI().split("/").length;
         if (len <4){
             try{
@@ -60,7 +52,6 @@ public class ProductController extends HttpServlet {
 
             int categoryId = Integer.parseInt(request.getRequestURI().split("/")[3]);
 
-//        Category category = gson.fromJson(sb.toString(), Category.class);
             try{
                 productList = this.productService.getAllProduct(categoryId);
             } catch (SQLException e) {
@@ -75,26 +66,13 @@ public class ProductController extends HttpServlet {
         ProductDTO productDTO = new ProductDTO();
         getFileUtils getfileutils = new getFileUtils();
 
-
-
-
-
-
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-//        StringBuilder sb = new StringBuilder();
-//        String s;
-//        while ((s = request.getReader().readLine()) != null) {
-//            sb.append(s);
-//        }
-//        Gson gson = new Gson();
+
         Product product =  new Gson().fromJson(request.getParameter("product"),Product.class);
 
         product.setImage( getfileutils.fileUpload(request));
-
-
-//        Product product = gson.fromJson(sb.toString(), Product.class);
 
         try {
             productDTO = this.productService.addProduct(product);
@@ -112,8 +90,6 @@ public class ProductController extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         getFileUtils getfileutils = new getFileUtils();
-
-
 
         Product product =  new Gson().fromJson(request.getParameter("product"),Product.class);
 

@@ -86,8 +86,6 @@ public class CategoryRepository extends Connection {
                 Category category = new Category(ids, categoryName, categoryDescription);
                 return category;
 
-
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {

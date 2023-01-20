@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.model.Category;
 import org.example.services.CategoryService;
-import org.example.utils.getFileUtils;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -23,12 +22,6 @@ public class CategoryController extends HttpServlet {
         List<Category> categoryList = new ArrayList<>();
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-//        StringBuilder sb = new StringBuilder();
-//        String s;
-//        while ((s = request.getReader().readLine()) != null) {
-//            sb.append(s);
-//        }
-//        Gson gson = new Gson();
 
         try {
             categoryList = categoryService.getAllCategory();
@@ -46,15 +39,10 @@ public class CategoryController extends HttpServlet {
         Category categories = new Category();
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        StringBuilder sb = new StringBuilder();
-        String s;
-        while ((s = request.getReader().readLine()) != null) {
-            sb.append(s);
-        }
 
 
-        Gson gson = new Gson();
-        Category category = gson.fromJson(sb.toString(), Category.class);
+        Category category = stringBuilder(request);
+
         int len = request.getRequestURI().split("/").length;
         if (len ==4) {
             int categoryId = Integer.parseInt(request.getRequestURI().split("/")[3]);
@@ -71,8 +59,6 @@ public class CategoryController extends HttpServlet {
             response.setStatus(405);
         }
 
-//        System.out.println("hello");
-//        System.out.println(product);
     }
 
     @Override
@@ -80,15 +66,8 @@ public class CategoryController extends HttpServlet {
         Category categories = new Category();
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        StringBuilder sb = new StringBuilder();
-        String s;
-        while ((s = request.getReader().readLine()) != null) {
-            sb.append(s);
-        }
 
-
-        Gson gson = new Gson();
-        Category category = gson.fromJson(sb.toString(), Category.class);
+        Category category = stringBuilder(request);
 
 
             try {
@@ -125,4 +104,17 @@ public class CategoryController extends HttpServlet {
 
     }
 
+    public Category stringBuilder(HttpServletRequest request) throws IOException {
+
+        StringBuilder sb = new StringBuilder();
+        String s;
+        while ((s = request.getReader().readLine()) != null) {
+            sb.append(s);
+        }
+
+
+        Gson gson = new Gson();
+        Category category = gson.fromJson(sb.toString(), Category.class);
+        return category;
+    }
 }
