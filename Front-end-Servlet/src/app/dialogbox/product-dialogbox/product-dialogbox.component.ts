@@ -14,6 +14,8 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductDialogboxComponent implements OnInit {
 
+  myFile: string;
+  selected:Number = 0;
   productForm: FormGroup;
   categories:Category[];
   actionBtn: string = "Save";
@@ -32,7 +34,6 @@ export class ProductDialogboxComponent implements OnInit {
       'id': ['0'],
       'productName': ['', Validators.required],
       'price': ['', Validators.required],
-      // 'quantity': ['', Validators.required],
       'image': [''],
       'productDescription': ['', Validators.required],
       'categoryId': ['', Validators.required],
@@ -41,7 +42,6 @@ export class ProductDialogboxComponent implements OnInit {
     'id': ['0'],
     'productName': ['', Validators.required],
     'price': ['', Validators.required],
-    // 'quantity': ['', Validators.required],
     'image': [''],
     'productDescription': ['', Validators.required],
     'categoryId': ['', Validators.required],
@@ -64,25 +64,21 @@ export class ProductDialogboxComponent implements OnInit {
     // this.productForm.controls['quantity'].setValue(this.data.quantity);
     this.productForm.controls['productDescription'].setValue(this.data.productDescription);
     this.productForm.controls['image'].setValue(this.data.image);
-    this.productForm.controls['categoryId'].setValue(3);
+    this.productForm.controls['categoryId'].setValue(this.data.category.id);
   }
   }
 
   addProduct(): void {
     const product = this.productForm.value;
     const formData = new FormData();
-    // let id = product.category;
-    // product.category = this.categories.find(items=>items.id == id);
+
     console.log(JSON.stringify(product))
+    formData.append('product', JSON.stringify(product));
+    formData.append('image', this.myFile);
     
-    // console.log(JSON.stringify(product))
-    // console.log(product)
-    // formData.append('product', JSON.stringify(product));
-    // console.log(formData)
-    // formData.append('file', this.productFile);
     if(!this.data){
       this.productService
-        .addProduct(product)
+        .addProduct(formData)
         .subscribe({
           next: () => {
             this.productForm.reset();
@@ -94,8 +90,12 @@ export class ProductDialogboxComponent implements OnInit {
       })
     }
     else {
-      this.updateProduct(product); 
+      this.updateProduct(formData); 
     }
+  }
+
+  onFileChange(event: any) {
+      this.myFile = event.target.files[0]
   }
 
   updateProduct(formData: FormData): void {

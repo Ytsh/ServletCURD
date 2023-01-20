@@ -110,7 +110,7 @@ public class CategoryRepository extends Connection {
 
             int isInserted = prepareStatement.executeUpdate();
             if (isInserted == 1) {
-                System.out.println("Record edited successfully.");
+                System.out.println("Record added successfully.");
             }
             int id = 0;
             try (ResultSet generatedKeys = prepareStatement.getGeneratedKeys()) {

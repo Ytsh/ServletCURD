@@ -17,13 +17,11 @@
 
                 <mat-form-field appearance="fill">
                     <mat-label>Category</mat-label>
-                    <mat-select placeholder="Category" formControlName="categoryId">
-                      <mat-option value="">Option</mat-option>
-                      <div *ngFor="let category of categories">
-                          <mat-option value="{{category.id}}" selected="selected">
+                    <mat-select [value]="data.category.id" placeholder="Category" formControlName="categoryId">
+                      <mat-option>--</mat-option>
+                          <mat-option *ngFor="let category of categories" [value]="category.id" >
                             {{category.categoryName}}
                           </mat-option>
-                      </div>
                     </mat-select>
                 </mat-form-field>
         
@@ -35,14 +33,12 @@
             <div class="col-md-5">
                 <!-- <input type="file"
                     id="imageUrl" style="display: none;" (change)="onSelectFile($event)" accept="image/*">
-                <label for="imageUrl" class="border p-3 mb-2" type="button">Product Image</label>
+                <label for="imageUrl" class="border p-3 mb-2" type="button">Product Image</label> -->
                 
-                <img [src]="image" alt="" height="200"> -->
 
-                <mat-form-field >
-                    <mat-label>Image</mat-label>
-                    <input matInput formControlName="image">
-                </mat-form-field>
+                <input class="form-control" type="file" id="formFileMultiple"
+                 accept="image/png, image/gif, image/jpeg" (change)="onFileChange($event)"/>
+
             </div>
         </div>
     </form>

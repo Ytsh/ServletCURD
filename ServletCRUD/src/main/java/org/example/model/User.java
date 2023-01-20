@@ -7,8 +7,25 @@ public class User {
     private String userName;
     private String firstName;
     private String lastName;
+
+
+    public User(int id, String email, String password) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     private String password;
-    private List<Integer> shoppingCartId;
+
+    private String email;
 
     public int getId() {
         return id;
@@ -43,18 +60,12 @@ public class User {
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public List<Integer> getShoppingCartId() {
-        return shoppingCartId;
-    }
 
-    public void setShoppingCartId(List<Integer> shoppingCartId) {
-        this.shoppingCartId = shoppingCartId;
-    }
 }

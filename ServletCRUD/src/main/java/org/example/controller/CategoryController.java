@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.model.Category;
 import org.example.services.CategoryService;
+import org.example.utils.getFileUtils;
 
 import java.io.IOException;
 import java.sql.SQLException;

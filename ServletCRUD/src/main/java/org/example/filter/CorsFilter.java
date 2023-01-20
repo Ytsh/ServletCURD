@@ -4,10 +4,11 @@ import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.example.utils.HTTPUtils;
 
 import java.io.IOException;
 
-@WebFilter(asyncSupported = true, urlPatterns = { "/*" })
+@WebFilter(filterName = "CorsFilter")
 public class CorsFilter implements Filter {
 
 
@@ -19,7 +20,21 @@ public class CorsFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
 
+        String path = request.getRequestURI();
+
+        boolean allowed = HTTPUtils.isUrlAllowed(path);
+
+        if(path.equals("/ServletCRUD/auth")){
+            allowed = false;
+        }
+
+        if (allowed) {
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
+
         String requestOrigin = request.getHeader("Origin");
+
         if(isAllowedOrigin(requestOrigin)) {
             // Authorize the origin, all headers, and all methods
             ((HttpServletResponse) servletResponse).addHeader("Access-Control-Allow-Origin", requestOrigin);

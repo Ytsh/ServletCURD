@@ -9,14 +9,18 @@ import { CategoryComponent } from './category/category.component';
 import { ProductComponent } from './product/product.component';
 import { CategoryDialogboxComponent } from './dialogbox/category-dialogbox/category-dialogbox.component';
 import { ProductDialogboxComponent } from './dialogbox/product-dialogbox/product-dialogbox.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HeaderComponent } from './component/header/header.component';
 import { MaterialModule } from './material/material.module';
+import { LoginComponent } from './signing/login/login.component';
+import { AuthService } from './auth/service/auth.service';
+import { AuthInterceptor } from './auth/interceptor/auth.interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+    LoginComponent,
     
   ],
   imports: [
@@ -27,7 +31,9 @@ import { MaterialModule } from './material/material.module';
     MaterialModule
     // StoreModule.forRoot({}, {})
   ],
-  providers: [],
+  providers: [AuthService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
