@@ -17,13 +17,15 @@ import { AuthService } from './auth/service/auth.service';
 import { AuthInterceptor } from './auth/interceptor/auth.interceptor';
 import { CategoryProductComponent } from './customer/category-product/category-product.component';
 import { CookieService } from 'ngx-cookie-service';
+import { CartComponent } from './customer/cart/cart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     LoginComponent,
-    CategoryProductComponent
+    CategoryProductComponent,
+    CartComponent
     
   ],
   imports: [

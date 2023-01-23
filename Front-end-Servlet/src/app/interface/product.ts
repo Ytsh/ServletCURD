@@ -5,6 +5,6 @@ export interface Product {
     productName:String,
     productDescription:String,
     image:String,
-    price:String,
+    price:string,
     category:Category
 }

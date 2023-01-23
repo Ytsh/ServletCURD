@@ -24,7 +24,7 @@ public class CorsFilter implements Filter {
 
         boolean allowed = HTTPUtils.isUrlAllowed(path);
 
-        if(path.equals("/ServletCRUD/auth")){
+        if(path.equals("/ServletCRUD/auth")| path.equals("/ServletCRUD/category/all")){
             allowed = false;
         }
 

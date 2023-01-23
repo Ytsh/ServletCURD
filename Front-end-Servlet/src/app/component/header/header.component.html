@@ -13,6 +13,9 @@
     <span *ngIf="username">Welcome {{username}}</span>
     <span class="spacer"></span>
     <div class="right">
+      <mat-icon (click)="cart()" class="cart_icon" aria-hidden="false" aria-label="Cart" fontIcon="shopping_bag">
+
+      </mat-icon>
 
       <button *ngIf="!isLoggedIn" (click)="login()" mat-icon-button aria-label="login">
         <mat-icon>login</mat-icon>Login Guest

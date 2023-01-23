@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/service/auth.service';
 import { Category } from 'src/app/interface/category';
@@ -15,7 +16,8 @@ import { CategoryService } from 'src/app/services/category.service';
 export class HeaderComponent {
 
   constructor(private authService: AuthService,private readonly http: HttpClient, private readonly categoryService:CategoryService,
-    private readonly router: Router,) { 
+    private readonly router: Router,
+    private cookieService:CookieService) { 
       
      }
 
@@ -59,6 +61,9 @@ export class HeaderComponent {
   backhome(){
     this.router.navigate(['/'])
    }
+   cart(){
+    this.router.navigate(['/cart'])
+   }
    login(): void {
     // this.getuserdetail()
     this.router.navigate(['/login'])
@@ -69,6 +74,7 @@ export class HeaderComponent {
     //  this.getuserdetail()
      this.authService.logout()
     //  this.authService.isLoggedIn$$.next(false);
+    this.cookieService.deleteAll();
    }
 
    isRoleAvailable(R:string):boolean

@@ -11,6 +11,12 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
+    path: 'cart', 
+    loadChildren: () => import('./customer/cart/cart.module').then(m => m.CartModule),
+    canActivate: [AuthGuard],
+    data: { roles: ["admin"]}
+  },
+  {
     path: 'category', 
     loadChildren: () => import('./category/category.module').then(m => m.CategoryModule),
     canActivate: [AuthGuard],
